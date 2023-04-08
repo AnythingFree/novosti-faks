@@ -26,16 +26,8 @@ soup = BeautifulSoup(response.content, 'html.parser')
 li_elements = soup.find('ul', id=element_to_monitor_id).find_all('li')
 initial_content = [li.text for li in li_elements]
 
- # send email to recipients
-subject = 'Mat i inf (novosti)'
-message = str("radi") # naslov u subject a link u body
-body = f'Subject: {subject}\n\n{message}'
-with smtplib.SMTP(smtp_server, smtp_port) as server:
-    server.starttls()
-    server.login(email, password)
-    for recipient in recipients_emails:
-        server.sendmail(email, recipient, body)
-"""     
+
+    
 while True:
     # get current website content
     response = requests.get(url)
@@ -61,5 +53,5 @@ while True:
     # wait for a certain time before checking again
     time.sleep(60)
 
-"""
+
 # DA LI DA BUDE WEBSAJT ILI ANDROID APP ILI 
