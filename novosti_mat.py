@@ -18,6 +18,7 @@ smtp_port = 587
 # element to monitor
 element_to_monitor_id = 'category-posts-3-internal'
 
+"""
 # send first email
 subject = 'Mat i inf (novosti)'
 message = "servis is up" # naslov u subject a link u body
@@ -27,35 +28,37 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
     server.login(email, password)
     for recipient in recipients_emails:
         server.sendmail(email, recipient, body)
-
+"""
         
-# get initial website content
+# read previous website content from file
+with open("current_content.txt", 'r') as f:
+    previous_content = f.read()
+"""
+while True:
+"""
+# get current website content
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
-li_elements = soup.find('ul', id=element_to_monitor_id).find_all('li')
-previous_content = [li.text for li in li_elements]
-        
-while True:
-    # get current website content
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    li_elements = soup.find('ul', id=element_to_monitor_id).find_all('li') # izvuci i linkove
-    current_content = [li.text for li in li_elements]
+li_elements = soup.find('ul', id=element_to_monitor_id).find_all('li') # izvuci i linkove
+current_content = [li.text for li in li_elements]
 
-    # check for changes
-    if current_content != previous_content:
-        
-        previous_content = current_content
+# check for changes
+if current_content != previous_content:
 
-        # send email to recipients
-        subject = 'Mat i inf (novosti)'
-        message = str(current_content) # naslov u subject a link u body
-        body = f'Subject: {subject}\n\n{message}'
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls()
-            server.login(email, password)
-            for recipient in recipients_emails:
-                server.sendmail(email, recipient, body)
+    with open("current_content.txt", 'w') as f:
+        f.write(str(current_content))
 
+
+    # send email to recipients
+    subject = 'Mat i inf (novosti)'
+    message = str(current_content) # naslov u subject a link u body
+    body = f'Subject: {subject}\n\n{message}'
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        server.starttls()
+        server.login(email, password)
+        for recipient in recipients_emails:
+            server.sendmail(email, recipient, body)
+"""
     # wait for a certain time before checking again
     time.sleep(60)
+"""
