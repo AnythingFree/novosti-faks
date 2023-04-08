@@ -31,7 +31,7 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
 """
         
 # read previous website content from file
-with open("current_content.txt", 'r') as f:
+with open("current_content.txt", 'r', encoding='utf-8') as f:
     previous_content = f.read()
 """
 while True:
@@ -45,7 +45,7 @@ current_content = [li.text for li in li_elements]
 # check for changes
 if current_content != previous_content:
 
-    with open("current_content.txt", 'w') as f:
+    with open("current_content.txt", 'w', encoding='utf-8') as f:
         f.write(str(current_content))
 
 
