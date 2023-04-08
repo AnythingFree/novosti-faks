@@ -43,7 +43,7 @@ li_elements = soup.find('ul', id=element_to_monitor_id).find_all('li') # izvuci 
 current_content = [li.text for li in li_elements]
 
 # check for changes
-if current_content != previous_content:
+if str(current_content) != previous_content:
 
     with open("current_content.txt", 'w', encoding='utf-8') as f:
         f.write(str(current_content))
