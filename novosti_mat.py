@@ -53,6 +53,7 @@ if current_content != previous_content:
     subject = 'Mat i inf (novosti)'
     message = str(current_content) # naslov u subject a link u body
     body = f'Subject: {subject}\n\n{message}'
+    body = body.encode('utf-8')
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
         server.login(email, password)
