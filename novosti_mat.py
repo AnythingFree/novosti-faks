@@ -26,7 +26,7 @@ soup = BeautifulSoup(response.content, 'html.parser')
 li_elements = soup.find('ul', id=element_to_monitor_id).find_all('li')
 initial_content = [li.text for li in li_elements]
 
-
+print("start ovdje")
 while True:
     # get current website content
     response = requests.get(url)
