@@ -31,7 +31,8 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.sendmail(email, recipient, body)
 """
 if not os.path.exists("current_content.txt"):
-    with open(path, 'w'): 
+    with open(path, 'w'):
+        pass
         
         
 # read previous website content from file
