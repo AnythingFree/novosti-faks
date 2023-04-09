@@ -30,13 +30,13 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
     for recipient in recipients_emails:
         server.sendmail(email, recipient, body)
 """
-if not os.path.exists("current_content.txt"):
+if not os.path.exists("/etc/current_content.txt"):
     with open(path, 'w'):
         pass
         
         
 # read previous website content from file
-with open("current_content.txt", 'r', encoding='utf-8') as f:
+with open("/etc/current_content.txt", 'r', encoding='utf-8') as f:
     previous_content = f.read()
 """
 while True:
@@ -50,7 +50,7 @@ current_content = [li.text for li in li_elements]
 # check for changes
 if str(current_content) != previous_content:
 
-    with open("current_content.txt", 'w', encoding='utf-8') as f:
+    with open("/etc/current_content.txt", 'w', encoding='utf-8') as f:
         f.write(str(current_content))
 
 
